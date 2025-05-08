@@ -1,0 +1,35 @@
+services:
+  php:
+    container_name: php
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      - ./:/app:delegated
+    ports:
+      - '8000:80'
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    container_name: db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    env_file:
+      - .env
+    volumes:
+      - ./dump.sql:/db/dump.sql
+      - ./test_db.sql:/db/test_db.sql
+      - ./.docker/db-init/entrypoint.sh:/entrypoint.sh
+    ports:
+      - "1433:1433"
+    networks:
+      - app-network
+    entrypoint: ["/bin/bash", "/entrypoint.sh"]
+
+networks:
+  app-network:
