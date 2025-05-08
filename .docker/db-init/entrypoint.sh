@@ -11,7 +11,4 @@ done
 echo "Running dump.sql..."
 /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -C -i /db/dump.sql
 echo "Finished running dump.sql."
-echo "Running test_db.sql..."
-/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -C -i /db/test_db.sql
-echo "Finished running test_db.sql."
 wait

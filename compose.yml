@@ -23,7 +23,6 @@ services:
       - .env
     volumes:
       - ./dump.sql:/db/dump.sql
-      - ./test_db.sql:/db/test_db.sql
       - ./.docker/db-init/entrypoint.sh:/entrypoint.sh
     ports:
       - "1433:1433"
